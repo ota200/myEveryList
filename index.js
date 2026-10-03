@@ -131,7 +131,11 @@ signupButton.addEventListener(
 
                 email: email,
 
-                password: password
+                password: password,
+
+                options: {
+                    emailRedirectTo: window.location.origin + window.location.pathname
+                }
 
             });
 
