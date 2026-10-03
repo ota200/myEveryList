@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyEverylist</title>
+	<link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+	<main class="card">
+		<h1>MyEverylist</h1>
+        <form id="myForm">
+            <h1>Add Media</h1>
+            <input id="mediaName" type="text" placeholder="Media name" required></input>
+            <select id="mediaType" required>
+                <option value="books">Books</option>
+                <option value="movies">Movies</option>
+                <option value="manga">Manga</option>
+                <option value="anime">Anime</option>
+                <option value="games">Games</option>
+            </select>
+            <select id="mediaStatus" required>
+                <option value="want-to-watch">Want to Watch</option>
+                <option value="watching">Watching</option>
+                <option value="completed">Completed</option>
+                <option value="dropped">Dropped</option>
+                <option value="playing">Playing</option>
+            </select>
+            <textarea id="mediaDescription"  type="text" placeholder="Media description" required></textarea>
+            <button type="submit">+ Add to Libary</button>
+        </form >
+
+        <form>
+            <h1>Add Category</h1>
+            <input id="categoryName" type="text" placeholder="Category name" required></input>
+            <button onclick="onCreateCategory(event)">+ Create Category</button>
+        </form>
+
+        <div id="media-list">
+
+        </div>
+	</main>
+	<script src="index.js"></script>
+</body>
+</html>

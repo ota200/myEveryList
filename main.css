@@ -1,0 +1,83 @@
+* {
+    box-sizing: border-box;
+}
+ 
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+}
+.media-details {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 20px; /* Space inside, before the line */
+    border-bottom: 1px solid #ccc; /* The divider line itself */
+    margin-bottom: 20px; /* Space outside, after the line */
+}
+
+.media-details button {
+    border: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #007BFF;
+    border-radius: 5rem;
+    font-size: 12px;
+
+}
+
+.media-details button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+    border-radius: 5rem;
+}
+
+.media-details .edit-btn {
+    background-color: #a79428;
+}
+
+.media-details p{
+    margin: 0;
+    background-color: #e0e0e0;
+    border-radius: 5rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 4px 5px;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
