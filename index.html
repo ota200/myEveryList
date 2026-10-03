@@ -31,16 +31,27 @@
             <button type="submit">+ Add to Libary</button>
         </form >
 
-        <form>
+        <form id="categoryForm">
             <h1>Add Category</h1>
-            <input id="categoryName" type="text" placeholder="Category name" required></input>
-            <button onclick="onCreateCategory(event)">+ Create Category</button>
+
+            <input
+                id="categoryName"
+                type="text"
+                placeholder="Category name"
+                required
+            >
+
+            <button type="submit">
+                + Create Category
+            </button>
         </form>
 
         <div id="media-list">
 
         </div>
 	</main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 	<script src="index.js"></script>
 </body>
 </html>

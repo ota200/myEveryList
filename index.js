@@ -1,33 +1,47 @@
+const SUPABASE_URL = "https://vkvpkmtdwteargqeewzg.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FiF92efiMWo8IcLgtz8n6g_Eaqpm3HA";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
 const myForm = document.getElementById("myForm");
 
-/*
-myForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log(e.target.value);
-    const name = $('#mediaName').val();
-    const desc = $('#mediaDescription').val();
-    const type = $('#mediaType').val();
-    const status = $('#mediaStatus').val();
 
-    // Keep each item in its own container so deleting it does not remove the list.
-    $('#media-list').append(`
-        <div class="media-item">
-            <h1>${name}</h1>
-            <p>${desc}</p>
-            <p>${type}</p>
-            <p>${status}</p>
-            <button type="button" value="delete" class="delete-btn" onclick="ondelete(event)">Delete</button>
-        </div>
-    `);
 
-    myForm.reset();
-});
-*/
+
+const categoryForm = document.getElementById("categoryForm");
+
+categoryForm.addEventListener("submit", onCreateCategory);
+
+async function addMedia(name, desc, type, status) {
+
+    const { data, error } = await supabaseClient
+        .from("media")
+        .insert({
+            name: name,
+            description: desc,
+            type: type,
+            status: status
+        })
+        .select();
+
+    if (error) {
+        console.error("Error adding media:", error);
+        alert("Could not add media.");
+        return;
+    }
+
+    console.log("Added to Supabase:", data);
+
+    await loadMedia();
+}
 
 let mediaList = [];
 let categories = [];
 
-myForm.addEventListener('submit', function(e) {
+myForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const name = document.getElementById("mediaName").value;
@@ -35,28 +49,27 @@ myForm.addEventListener('submit', function(e) {
     const type = document.getElementById("mediaType").value;
     const status = document.getElementById("mediaStatus").value;
 
-    mediaList.unshift({
-        name: name,
-        desc: desc,
-        type: type,
-        status: status
-    });
-    
-    categories.push(type);
-    localStorage.setItem('mediaList', JSON.stringify(mediaList));
-    localStorage.setItem('categories', JSON.stringify(categories));
-
-    renderMediaList();
+    await addMedia(name, desc, type, status);
 
     myForm.reset();
 });
 
-function ondelete(e){
+async function ondelete(e) {
     e.preventDefault();
-    const index = e.target.dataset.index;
-    mediaList.splice(index, 1);
-    localStorage.setItem('mediaList', JSON.stringify(mediaList));
-    renderMediaList();
+
+    const id = e.target.dataset.id;
+
+    const { error } = await supabaseClient
+        .from("media")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        console.error("Error deleting media:", error);
+        return;
+    }
+
+    loadMedia();
 }
 
 //on Edit button
@@ -115,64 +128,199 @@ function onEdit(e) {
         </form>
     `;
 }
-function onSave(e){
+
+async function onSave(e) {
     e.preventDefault();
-    e.target.value = "edit";
-    e.target.innerHTML = "Edit";
 
     const index = e.target.dataset.index;
-    
-    const name = document.getElementById("mediaName-" + index).value;
-    const desc = document.getElementById("mediaDescription-" + index).value;
-    const type = document.getElementById("mediaType-" + index).value;
-    const status = document.getElementById("mediaStatus-" + index).value;
 
+    const name = document.getElementById(
+        "mediaName-" + index
+    ).value;
 
+    const desc = document.getElementById(
+        "mediaDescription-" + index
+    ).value;
 
-    mediaList[index] = {
-        name: name,
-        desc: desc,
-        type: type,
-        status: status
-    };
+    const type = document.getElementById(
+        "mediaType-" + index
+    ).value;
 
-    localStorage.setItem('mediaList', JSON.stringify(mediaList));
-    renderMediaList();
+    const status = document.getElementById(
+        "mediaStatus-" + index
+    ).value;
 
+    const id = mediaList[index].id;
+
+    const { error } = await supabaseClient
+        .from("media")
+        .update({
+            name: name,
+            description: desc,
+            type: type,
+            status: status
+        })
+        .eq("id", id);
+
+    if (error) {
+        console.error("Error updating media:", error);
+        return;
+    }
+
+    await loadMedia();
 }
 
 
 
-function onCreateCategory(e){
+async function onCreateCategory(e) {
     e.preventDefault();
-    const category = document.getElementById("categoryName");
-    const categoryName = category.value;
-    category.value = "";
-    document.getElementById("mediaType").insertAdjacentHTML("beforeend", `<option value="${categoryName}">${categoryName}</option>`);
-    console.log(categoryName);
-}  
-const storedMediaList = localStorage.getItem('mediaList');
-if (storedMediaList) {
-    mediaList = JSON.parse(storedMediaList);
+
+    const categoryInput = document.getElementById("categoryName");
+    const categoryName = categoryInput.value.trim();
+
+    if (!categoryName) {
+        return;
+    }
+
+    const { data, error } = await supabaseClient
+        .from("categories")
+        .insert([
+            {
+                name: categoryName
+            }
+        ])
+        .select();
+
+    if (error) {
+        console.error("Error creating category:", error);
+        return;
+    }
+
+    console.log("Category created:", data);
+
+    categoryInput.value = "";
+
+    loadCategories();
+}
+
+async function loadMedia() {
+
+    const { data, error } = await supabaseClient
+        .from("media")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Error loading media:", error);
+        alert("Could not load media.");
+        return;
+    }
+
+    console.log("Loaded from Supabase:", data);
+
+    mediaList = data.map(media => ({
+        id: media.id,
+        name: media.name,
+        desc: media.description,
+        type: media.type,
+        status: media.status
+    }));
+
+    renderMediaList();
+}
+
+async function loadCategories() {
+    const { data, error } = await supabaseClient
+        .from("categories")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+    if (error) {
+        console.error("Error loading categories:", error);
+        return;
+    }
+
+    const mediaType = document.getElementById("mediaType");
+
+    // Remove custom categories while keeping the default ones
+    mediaType.querySelectorAll(".custom-category").forEach(option => {
+        option.remove();
+    });
+
+    data.forEach(category => {
+        const option = document.createElement("option");
+
+        option.value = category.name;
+        option.textContent = category.name;
+        option.classList.add("custom-category");
+
+        mediaType.appendChild(option);
+    });
 }
 
 function renderMediaList() {
     const mediaListContainer = document.getElementById("media-list");
+
     mediaListContainer.innerHTML = '';
-    mediaList.forEach(function(media,index) {
+
+    mediaList.forEach(function(media, index) {
+
         mediaListContainer.insertAdjacentHTML("beforeend", `
             <div class="media-item" id="media-item-${index}">
-                <h1 id="media-name-${index}">${media.name}</h1>
-                <p id="media-description-${index}">${media.desc}</p>
+
+                <h1 id="media-name-${index}">
+                    ${media.name}
+                </h1>
+
+                <p id="media-description-${index}">
+                    ${media.desc}
+                </p>
+
                 <div class="media-details">
-                    <p id="media-type-${index}">${media.type}</p>
-                    <p id="media-status-${index}">${media.status}</p>
-                    <button type="button" value="delete" class="delete-btn" onclick="ondelete(event)" data-index="${index}">Delete</button>
-                    <button type="button" value="edit" class="edit-btn" onclick="onEdit(event)" data-index="${index}">Edit</button>
+
+                    <p id="media-type-${index}">
+                        ${media.type}
+                    </p>
+
+                    <p id="media-status-${index}">
+                        ${media.status}
+                    </p>
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        onclick="ondelete(event)"
+                        data-id="${media.id}">
+                        Delete
+                    </button>
+
+                    <button
+                        type="button"
+                        class="edit-btn"
+                        onclick="onEdit(event)"
+                        data-index="${index}">
+                        Edit
+                    </button>
+
                 </div>
+
             </div>
         `);
     });
 }
 
-renderMediaList();
+loadMedia();
+loadCategories();
+
+async function testSupabase() {
+    console.log("Testing Supabase...");
+
+    const { data, error } = await supabaseClient
+        .from("media")
+        .select("*");
+
+    console.log("SUPABASE DATA:", data);
+    console.log("SUPABASE ERROR:", error);
+}
+
+testSupabase();
