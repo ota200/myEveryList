@@ -1,38 +1,196 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MyEverylist</title>
-	<link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>MyEverylist</title>
+
+<link rel="stylesheet" href="main.css">
+
 
 </head>
+
 <body>
-	<main class="card">
-		<h1>MyEverylist</h1>
+
+
+<main class="card">
+
+    <h1>MyEverylist</h1>
+
+
+    <!-- ============================= -->
+    <!-- AUTHENTICATION -->
+    <!-- ============================= -->
+
+    <section id="auth-section">
+
+        <h2>Account</h2>
+
+        <form id="loginForm">
+
+            <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <button
+            type="button"
+            id="signupButton">
+            Create Account
+        </button>
+
+
+        <button
+            type="button"
+            id="logoutButton"
+            style="display: none;">
+            Logout
+        </button>
+
+
+        <p id="authMessage"></p>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- CURRENT USER -->
+    <!-- ============================= -->
+
+    <section
+        id="user-section"
+        style="display: none;">
+
+        <p>
+            Logged in as:
+            <strong id="userEmail"></strong>
+        </p>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- MEDIA APPLICATION -->
+    <!-- ============================= -->
+
+    <section
+        id="media-section"
+        style="display: none;">
+
+
+        <!-- ============================= -->
+        <!-- ADD MEDIA -->
+        <!-- ============================= -->
+
         <form id="myForm">
-            <h1>Add Media</h1>
-            <input id="mediaName" type="text" placeholder="Media name" required></input>
-            <select id="mediaType" required>
-                <option value="books">Books</option>
-                <option value="movies">Movies</option>
-                <option value="manga">Manga</option>
-                <option value="anime">Anime</option>
-                <option value="games">Games</option>
+
+            <h2>Add Media</h2>
+
+
+            <input
+                id="mediaName"
+                type="text"
+                placeholder="Media name"
+                required
+            >
+
+
+            <select
+                id="mediaType"
+                required>
+
+                <option value="books">
+                    Books
+                </option>
+
+                <option value="movies">
+                    Movies
+                </option>
+
+                <option value="manga">
+                    Manga
+                </option>
+
+                <option value="anime">
+                    Anime
+                </option>
+
+                <option value="games">
+                    Games
+                </option>
+
             </select>
-            <select id="mediaStatus" required>
-                <option value="want-to-watch">Want to Watch</option>
-                <option value="watching">Watching</option>
-                <option value="completed">Completed</option>
-                <option value="dropped">Dropped</option>
-                <option value="playing">Playing</option>
+
+
+            <select
+                id="mediaStatus"
+                required>
+
+                <option value="want-to-watch">
+                    Want to Watch
+                </option>
+
+                <option value="watching">
+                    Watching
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="dropped">
+                    Dropped
+                </option>
+
+                <option value="playing">
+                    Playing
+                </option>
+
             </select>
-            <textarea id="mediaDescription"  type="text" placeholder="Media description" required></textarea>
-            <button type="submit">+ Add to Libary</button>
-        </form >
+
+
+            <textarea
+                id="mediaDescription"
+                placeholder="Media description"
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                + Add to Library
+            </button>
+
+        </form>
+
+
+        <!-- ============================= -->
+        <!-- ADD CATEGORY -->
+        <!-- ============================= -->
 
         <form id="categoryForm">
-            <h1>Add Category</h1>
+
+            <h2>Add Category</h2>
+
 
             <input
                 id="categoryName"
@@ -41,17 +199,35 @@
                 required
             >
 
+
             <button type="submit">
                 + Create Category
             </button>
+
         </form>
 
-        <div id="media-list">
 
-        </div>
-	</main>
+        <!-- ============================= -->
+        <!-- MEDIA LIST -->
+        <!-- ============================= -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-	<script src="index.js"></script>
+        <div id="media-list"></div>
+
+
+    </section>
+
+</main>
+
+
+<!-- ============================= -->
+<!-- SUPABASE -->
+<!-- ============================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="index.js"></script>
+
+
 </body>
+
 </html>
