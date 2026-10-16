@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="MyEverylist">
+	<title>MyEverylist</title>
+	<link rel="stylesheet" href="main.css">
+    <style>
+        #loginForm {
+            display: flex !important;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+<main class="login_main">
+    <div class="login_image">
+        <a  href="index.html"><h3>MyEverylist - Prototype*</h3></a>
+
+    </div>
+
+    <div class="login">
+        <h2>Welcome back</h2>
+        <p>Sign in to pick up where you left off.</p>
+
+        <form id="loginForm" onsubmit="event.preventDefault();">
+            <label for="email">Email address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email address"
+                autocomplete="email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <div class="login_options">
+                <div>
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        name="remember"
+                    >
+                    <label for="remember">Remember me</label>
+                </div>
+
+                <a href="#" id="forgotPassword">
+                    Forgot password?
+                </a>
+            </div>
+
+            <button class="btn_orange" type="submit">
+                Sign In
+            </button>
+
+            <p>or</p>
+
+            <div class="login_social">
+                <button
+                    class="btn_white"
+                    type="button"
+                    id="googleLogin"
+                >
+                    Sign in with Google
+                </button>
+
+                <button
+                    class="btn_white"
+                    type="button"
+                    id="githubLogin"
+                >
+                    Sign in with GitHub
+                </button>
+            </div>
+
+            <p id="authMessage" role="status" aria-live="polite"></p>
+
+            <p>
+                
+                <a href="signup.html">New here? Set up your account.</a>
+            </p>
+        </form>
+    </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="main.js"></script>
+</body>
+</html>

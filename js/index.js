@@ -829,6 +829,10 @@ async function onSave(e) {
 
 }
 
+async function mediaInfo(e) {
+    console.log(e);
+}
+
 
 // ============================================
 // RENDER MEDIA
@@ -847,7 +851,7 @@ function renderMediaList() {
 
     mediaList.forEach(
         function (media, index) {
-
+            console.log(media, index)
             mediaListContainer.insertAdjacentHTML(
                 "beforeend",
 
@@ -857,6 +861,7 @@ function renderMediaList() {
                     class="media-item"
                     id="media-item-${index}"
                 >
+                <a href="media.html" onclick={mediaInfo(${media.name})}> View Info</a>
 
                     <h2
                         id="media-name-${index}"

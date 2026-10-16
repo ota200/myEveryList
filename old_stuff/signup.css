@@ -1,0 +1,48 @@
+/* Signup page boilerplate */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	min-height: 100vh;
+	font-family: Arial, sans-serif;
+	line-height: 1.5;
+	color: #222;
+	background: #f5f5f5;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+	margin: 0;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+a {
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+}

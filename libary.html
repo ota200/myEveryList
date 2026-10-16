@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyEverylist</title>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<header>
+        <nav aria-label="Main navigation">
+			<a  href="index.html"><h3>MyEverylist - Prototype*</h3></a>
+
+            <div>
+               
+                <button id="logoutButton" class="btn_white" type="button">Sign out</button>
+            </div>
+
+		</nav>
+    </header>
+
+	<main id="media-section">
+        <p id="user-section">Signed in as <strong id="userEmail"></strong></p>
+
+        <div class="library-layout">
+            <aside id="library-sidebar" aria-label="Library controls">
+                <button
+                    id="addMediaButton"
+                    type="button"
+                    aria-controls="myForm"
+                    aria-expanded="false"
+                    onclick="const form = document.getElementById('myForm').parentElement; const isHidden = form.hasAttribute('hidden'); form.toggleAttribute('hidden', !isHidden); this.setAttribute('aria-expanded', String(isHidden));"
+                >Add Media</button>
+                    <div class="myMediaForm" hidden>
+                        <form id="myForm">
+
+            <h2>Add Media</h2>
+
+
+            <input
+                id="mediaName"
+                type="text"
+                placeholder="Media name"
+                required
+            >
+
+
+            <select
+                id="mediaType"
+                required>
+
+                <option value="books">
+                    Books
+                </option>
+
+                <option value="movies">
+                    Movies
+                </option>
+
+                <option value="manga">
+                    Manga
+                </option>
+
+                <option value="anime">
+                    Anime
+                </option>
+
+                <option value="games">
+                    Games
+                </option>
+
+            </select>
+
+
+            <select
+                id="mediaStatus"
+                required>
+
+                <option value="want-to-watch">
+                    Want to Watch
+                </option>
+
+                <option value="watching">
+                    Watching
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="dropped">
+                    Dropped
+                </option>
+
+                <option value="playing">
+                    Playing
+                </option>
+
+            </select>
+
+
+            <textarea
+                id="mediaDescription"
+                placeholder="Media description"
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                + Add to Library
+            </button>
+
+			            </form>
+                    </div>
+
+                    <form id="categoryForm">
+
+            <h2>Add Category</h2>
+
+
+            <input
+                id="categoryName"
+                type="text"
+                placeholder="Category name"
+                required
+            >
+
+
+            <button type="submit">
+                + Create Category
+            </button>
+
+                    </form>
+
+                    <div id="editMediaPanel" class="myMediaForm" hidden>
+                        <form id="editMediaForm">
+                            <h2>Edit Media</h2>
+
+                            <input id="editMediaName" type="text" placeholder="Media name" required>
+
+                            <select id="editMediaType" required>
+                                <option value="books">Books</option>
+                                <option value="movies">Movies</option>
+                                <option value="manga">Manga</option>
+                                <option value="anime">Anime</option>
+                                <option value="games">Games</option>
+                            </select>
+
+                            <select id="editMediaStatus" required>
+                                <option value="want-to-watch">Want to Watch</option>
+                                <option value="watching">Watching</option>
+                                <option value="completed">Completed</option>
+                                <option value="dropped">Dropped</option>
+                                <option value="playing">Playing</option>
+                            </select>
+
+                            <textarea id="editMediaDescription" placeholder="Media description" required></textarea>
+
+                            <button type="submit">Save</button>
+                            <button id="cancelEditButton" type="button">Cancel</button>
+                        </form>
+                    </div>
+            </aside>
+
+            <section aria-labelledby="media-list-heading">
+                <h2 id="media-list-heading">My Library</h2>
+                <div id="media-list" aria-live="polite" aria-label="Media in your library" class="media-list">
+                    <p id="media-empty-state">No media in your library yet.</p>
+                </div>
+            </section>
+        </div>
+
+	</main>
+
+
+    <hr class="divider">
+	<footer>
+        
+		<p >&copy; 2026 MyEverylist</p>
+        <div>
+            <ul>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+	</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<script src="main.js"></script>
+</body>
+</html>

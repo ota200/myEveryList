@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "MyEverylist",
+  "description": "A extension to manage the media you watch, read and listen to.",
+  "version": "1.0",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab"]
+}
